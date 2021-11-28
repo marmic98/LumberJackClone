@@ -35,25 +35,30 @@ class CentralObject {
         
         this.x = width/2 - this.w/2;
         this.y = 0;
-        this.counter = 0;
-    
+
         this.cells = Array(parseInt(height / cellHeigth));
+        
+        this.hasObstacleGenerating = true;
     }
 
     init(){
         for(let i = 0; i < this.cells.length; i+=2){
-            this.cells[i] = new Cell(this.x, i<this.cells.length-3, i);
+            this.cells[i] = new Cell(this.x, i<this.cells.length-4, i);
             this.cells[i + 1] = new Cell(this.x, 0, i + 1);
         }
         //It deletes the last element because of the number of displayed elements is always spare
         this.cells.pop();
+        this.hasObstacleGenerating = !this.cells[0].hasObstacle;
+
     }
 
     update(){
-        this.cells.pop();
-        this.cells.forEach((cell) => cell.number++);
-        this.cells[0] = new Cell(this.x, true, 0);
         
+        this.cells.pop();
+
+        this.cells.forEach((cell) => cell.update());
+        this.cells.unshift(new Cell(this.x, this.hasObstacleGenerating, 0));
+
     }
 
     display(){
@@ -70,14 +75,18 @@ class Cell {
         this.h = cellHeigth;
 
         this.x = x;
-        this.y = number * cellHeigth;
-
         this.number = number;
+        this.y = this.number * cellHeigth;
         
         //0 = noObstacle
         //1 = rightObstacle
         //-1 = leftObstacle
         this.obstacle = hasObstacle ? parseInt(random(-2, 2)) : 0;
+    }
+
+    update(){
+        this.number++;
+        this.y = this.number * cellHeigth;
     }
 
     display(){
@@ -98,9 +107,11 @@ class Cell {
     }
 }
 
-
 function keyPressed() {
-    if (value === "ArrowDown") {
-      console.log("x")    
+    if (keyCode === LEFT_ARROW) {
+        centralObject.update();
+    } 
+    else if (keyCode === RIGHT_ARROW) {
+        centralObject.update();
     }
   }
