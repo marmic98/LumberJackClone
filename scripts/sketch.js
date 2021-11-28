@@ -53,8 +53,8 @@ class CentralObject {
         }
         //It deletes the last element because of the number of displayed elements is always spare
         this.cells.pop();
-        this.hasObstacleGenerating = !this.cells[0].hasObstacle;
 
+        this.hasObstacleGenerating = this.cells[0].obstacle == 0;
     }
 
     update(){
@@ -62,6 +62,8 @@ class CentralObject {
         this.cells.pop();
 
         this.cells.forEach((cell) => cell.update());
+
+        this.hasObstacleGenerating = this.cells[0].obstacle == 0;
         this.cells.unshift(new Cell(this.x, this.hasObstacleGenerating, 0));
 
     }
@@ -144,7 +146,8 @@ class Player {
         centralObject.update();
 
         //Second last
-        if (centralObject.cells[centralObject.cells.length-2].obstacle == this.direction){
+        if (centralObject.cells[centralObject.cells.length-2].obstacle == this.direction
+            || centralObject.cells[centralObject.cells.length-1].obstacle == this.direction){
             noLoop();
         }
         
