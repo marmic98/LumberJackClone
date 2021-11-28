@@ -5,6 +5,8 @@ const cellWidth = 100;
 let player;
 let centralObject;
 
+let points = 0;
+
 function setup(){
     createCanvas(800, 600);
     centralObject = new CentralObject();
@@ -21,6 +23,10 @@ function draw(){
     
     centralObject.display();
     player.display();
+
+    fill(255);
+    text(points, 50, 50);
+
 }
 
 const drawTerrain = () => {
@@ -150,7 +156,9 @@ class Player {
             || centralObject.cells[centralObject.cells.length-1].obstacle == this.direction){
             noLoop();
         }
-        
+        else{
+            points++;
+        }
     }
 
 }
