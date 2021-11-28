@@ -4,7 +4,7 @@ const cellHeigth = 50;
 let centralObject;
 
 function setup(){
-    createCanvas(800, windowHeight-100);
+    createCanvas(800, 600);
     centralObject = new CentralObject();
     centralObject.init();
 }
@@ -41,10 +41,12 @@ class CentralObject {
     }
 
     init(){
-        for(let i = 0; i < this.cells.length; i++){
+        for(let i = 0; i < this.cells.length; i+=2){
             this.cells[i] = new Cell(this.x, i<this.cells.length-3, i);
+            this.cells[i + 1] = new Cell(this.x, 0, i + 1);
         }
-        console.log(this.cells);
+        //It deletes the last element because of the number of displayed elements is always spare
+        this.cells.pop();
     }
 
     update(){
