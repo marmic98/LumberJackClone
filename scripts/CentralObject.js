@@ -34,7 +34,7 @@ class CentralObject {
         this.hasObstacleGenerating = this.cells[0].obstacle == 0;
         this.cells.unshift(new Cell(this.x, this.hasObstacleGenerating, 0));
 
-        this.cells[this.cells.length - 1] = new Cell(this.x, 0, this.cells.length - 1);
+        this.cells[this.cells.length - 1].obstacle = 0;
 
     }
 

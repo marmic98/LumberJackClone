@@ -27,7 +27,7 @@ class Player {
     update(direction){
 
         this.updateDirection(direction);
-        centralObject.update();
+        
 
         //Second last
         if (centralObject.cells[centralObject.cells.length-2].obstacle == this.direction
@@ -37,6 +37,8 @@ class Player {
         else{
             points++;
         }
+        
+        centralObject.update();
     }
 
 }
